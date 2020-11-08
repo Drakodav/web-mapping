@@ -19,7 +19,7 @@ load.run()
 
 * login 
 ```
-sudo ssh -i web-mapping_key.pem azureuser@40.80.148.244
+sudo ssh -i web-mapping_key.pem azureuser@40.121.42.196
 ```
 
 * pushing
@@ -32,3 +32,26 @@ docker push vmedves/web-mapping:geodjangoapp
 - server -> azure
 - domain -> namecheap
 - docker -> vmedves/web-mapping:geodjangoapp
+
+install docker 
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+ssh script
+```
+git clone https://github.com/Drakodav/web-mapping.git
+
+sudo chmod go=rwx web-mapping/
+
+cd web-mapping
+
+sudo ./run.sh
+```

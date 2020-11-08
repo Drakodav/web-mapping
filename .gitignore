@@ -1,4 +1,4 @@
 .devcontainer
 .vscode
 .venv
-web-mapping-key.pem
+./web-mapping-key.pem

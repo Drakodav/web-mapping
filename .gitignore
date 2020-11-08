@@ -3,4 +3,5 @@
 .venv
 web-mapping_key.pem
 **/__pycache__/**
-staticfiles/static/
+**/__pycache__/
+staticfiles/static/**

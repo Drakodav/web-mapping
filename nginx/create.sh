@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# run from this directory
+cd "${BASH_SOURCE%/*}" || exit
+
 LOCAL=DESKTOP-9D122S4
 
 if [ $HOSTNAME == $LOCAL ]
@@ -11,7 +15,7 @@ docker rm nginx
 # remove image
 docker image rm nginx_gis
 
-docker build -t nginx_gis .
+docker build -t nginx_gis -f Dockerfile.local .
 echo "done building image"
 
 echo "creating container"
@@ -30,7 +34,7 @@ docker rm nginx_cert
 # remove image
 docker image rm nginx_gis_cert
 
-docker build -t nginx_gis_cert .
+docker build -t nginx_gis_cert -f Dockerfile.live .
 echo "done building image"
 
 echo "creating container"

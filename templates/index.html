@@ -1,0 +1,122 @@
+{% extends "./base.html" %}
+{% block content %}
+
+<!-- here we show leaflet shtuff if user is logged in-->
+{% if not user.is_authenticated %}
+<div class="card" style="width: 18rem; margin-top: 5rem;">
+    <div class="card-body">
+        <h5 class="card-title">Welcome to Web-Mapping</h5>
+        <br>
+        <p class="card-text">Login or sign-up to unlock</p>
+    </div>
+</div>
+{% else %}
+{% load leaflet_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
+
+<body>
+    <style>
+        #map,
+        #webMapping {
+            height: 80vh;
+            width: 100%;
+        }
+    </style>
+
+    <div class="card" style="width: 18rem; margin: 2rem;">
+        <div class="card-body">
+            <h5 class="card-title">Enjoy - by Vlad-Anton</h5>
+        </div>
+    </div>
+
+    <div id="map">
+        {% leaflet_map "webMapping" callback="web_map_init" %}
+    </div>
+
+    <script>
+        function web_map_init(map, options) {
+            var locationMarker = null;
+            var locationCircle = null;
+
+            map.setView([53.5, -8.5], 11)
+
+            updateLocation(map)
+
+            map.on('touchstart click dblclick', () => {
+                updateLocation(map)
+            })
+
+            function updateLocation(map) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        var lat = pos.coords.latitude;
+                        var lng = pos.coords.longitude;
+                        var acc = pos.coords.accuracy;
+
+                        setMapToCurrentLocation(map, lat, lng, acc);
+                        update_db(lat, lng)
+                    },
+                    (err) => {
+                        console.log('location error', err.message);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        // maximumAge: 60000,
+                        timeout: 30000
+                    }
+                );
+            }
+
+            function setMapToCurrentLocation(myMap, lat, lng, acc) {
+                var myLatLng = L.latLng(lat, lng);
+
+
+                if (locationMarker || locationCircle) {
+                    map.flyTo(myLatLng, 16);
+                    map.removeLayer(locationMarker);
+                    map.removeLayer(locationCircle);
+                }
+                // add marker here
+                locationMarker = L.marker(myLatLng)
+                locationCircle = L.circle(myLatLng, {
+                    color: "red",
+                    fillColor: "#f03",
+                    fillOpacity: 0.5,
+                    radius: acc
+                });
+
+                locationMarker.addTo(map)
+                locationCircle.addTo(map)
+            }
+
+            navigator.geolocation.watchPosition((map) => updateLocation(map), (err) => console.log('watch pos error', err));
+
+            function update_db(lat, lng) {
+                data = {
+                    latitude: lat,
+                    longtitude: lng
+                }
+
+                $.ajax('home/data/', {
+                    type: 'POST',
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    dataType: 'json',
+                    data: { data: JSON.stringify(data) },
+                    timeout: 500,
+                    success: (data, status, xhr) => {
+                        console.log('Success', data, status, xhr)
+                    },
+                    error: (jqXhr, textStatus, errorMessage) => {
+                        console.log('Error', errorMessage)
+                    }
+                })
+            }
+        }
+
+    </script>
+
+</body>
+
+{% endif %}
+{% endblock %}

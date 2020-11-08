@@ -2,3 +2,5 @@
 .vscode
 .venv
 web-mapping_key.pem
+**/__pycache__/**
+staticfiles/static/

@@ -1,9 +1,8 @@
-from .forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
+from .forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm, SignupForm
 from django.contrib.auth import views as auth_views
 from . import views
 from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import path
-from .views import SignUpView
 
 
 urlpatterns = [
@@ -27,5 +26,5 @@ urlpatterns = [
 
     path('profile/', views.profile, name='profile'),
 
-    path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', views.SignUpView.as_view(form_class=SignupForm), name='signup'),
 ]

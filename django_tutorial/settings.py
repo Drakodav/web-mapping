@@ -159,16 +159,16 @@ else:
     DATABASES["default"]["HOST"] = 'postgis'
     DATABASES["default"]["PORT"] = 5432
 
-# # Set DEPLOY_SECURE to True only for LIVE deployment
-# if docker_config.DEPLOY_SECURE:
-#     DEBUG = False
-#     TEMPLATES[0]["OPTIONS"]["debug"] = False
-#     # ALLOWED_HOSTS = ['.your-domain-name.xyz', 'localhost',]
-#     CSRF_COOKIE_SECURE = True
-#     SESSION_COOKIE_SECURE = True
-# else:
-#     DEBUG = True
-#     TEMPLATES[0]["OPTIONS"]["debug"] = True
-#     ALLOWED_HOSTS = ['*', ]
-#     CSRF_COOKIE_SECURE = False
-#     SESSION_COOKIE_SECURE = False
+DEPLOY_SECURE = False
+if DEPLOY_SECURE == True:
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    ALLOWED_HOSTS = ['.thev-lad.com', 'localhost']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    DEBUG = True
+    TEMPLATES[0]["OPTIONS"]["debug"] = True
+    ALLOWED_HOSTS = ['*', ]
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False

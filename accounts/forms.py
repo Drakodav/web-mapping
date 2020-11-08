@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm, UserCreationForm
 from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm as BaseSetPasswordForm
 from django.contrib.auth.forms import UsernameField
@@ -52,3 +53,14 @@ class PasswordChangeForm(SetPasswordForm):
         widget=forms.PasswordInput(
             attrs={'autocomplete': 'current-password', 'autofocus': True, 'class': 'form-control'}),
     )
+
+
+class SignupForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]

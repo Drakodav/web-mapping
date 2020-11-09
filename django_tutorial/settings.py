@@ -155,20 +155,18 @@ STATICFILES_DIRS = [
 if socket.gethostname() == "DESKTOP-9D122S4":
     DATABASES["default"]["HOST"] = "localhost"
     DATABASES["default"]["PORT"] = 25432
-else:
-    DATABASES["default"]["HOST"] = 'postgis'
-    DATABASES["default"]["PORT"] = 5432
 
-DEPLOY_SECURE = False
-if DEPLOY_SECURE == True:
-    DEBUG = False
-    TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.thev-lad.com', 'localhost']
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-else:
     DEBUG = True
     TEMPLATES[0]["OPTIONS"]["debug"] = True
     ALLOWED_HOSTS = ['*', ]
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
+else:
+    DATABASES["default"]["HOST"] = 'postgis'
+    DATABASES["default"]["PORT"] = 5432
+
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    ALLOWED_HOSTS = ['.thev-lad.com', 'localhost']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True

@@ -43,15 +43,32 @@ sudo add-apt-repository \
    stable"
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
 ssh script
 ```
 git clone https://github.com/Drakodav/web-mapping.git
 
-sudo chmod go=rwx web-mapping/
+sudo find web-mapping/ -type f -iname "*.sh" -exec chmod +x {} \;
 
 cd web-mapping
 
 sudo ./run.sh
+```
+
+install certbot
+```
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+# make sure nginx binaries are installed
+sudo apt-get install nginx
+
+# here we create the cert
+sudo certbot --nginx
 ```

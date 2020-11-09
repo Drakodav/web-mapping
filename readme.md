@@ -78,3 +78,8 @@ reset github changes
 git reset --hard
 git pull
 ```
+
+bash into container
+```
+docker exec -it django_project bash
+```

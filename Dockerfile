@@ -27,5 +27,4 @@ RUN python manage.py collectstatic --no-input
 EXPOSE 8001
 
 # run uwsgi 
-
 CMD [ "uwsgi", "--ini", "uwsgi.ini" ]

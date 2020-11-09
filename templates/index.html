@@ -36,6 +36,14 @@
     </div>
 
     <script>
+        delete L.Icon.Default.prototype._getIconUrl;
+
+        L.Icon.Default.mergeOptions({
+            iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+            iconUrl: require('leaflet/dist/images/marker-icon.png'),
+            shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+        });
+
         function web_map_init(map, options) {
             var locationMarker = null;
             var locationCircle = null;
@@ -106,7 +114,7 @@
                     data: { data: JSON.stringify(data) },
                     timeout: 500,
                     success: (data, status, xhr) => {
-                        console.log('Success', data, status, xhr)
+                        // 
                     },
                     error: (jqXhr, textStatus, errorMessage) => {
                         console.log('Error', errorMessage)

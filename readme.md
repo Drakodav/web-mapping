@@ -77,6 +77,8 @@ reset github changes
 ```
 git reset --hard
 git pull
+
+sudo find . -type f -iname "*.sh" -exec chmod +x {} \;
 ```
 
 bash into container

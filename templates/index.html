@@ -74,9 +74,9 @@
 
 
                 if (locationMarker || locationCircle) {
-                    map.flyTo(myLatLng, 16);
                     map.removeLayer(locationMarker);
                     map.removeLayer(locationCircle);
+                    map.flyTo(myLatLng, 16);
                 }
                 // add marker here
                 locationMarker = L.marker(myLatLng)
@@ -94,24 +94,32 @@
             navigator.geolocation.watchPosition((map) => updateLocation(map), (err) => console.log('watch pos error', err));
 
             function update_db(lat, lng) {
-                data = {
-                    latitude: lat,
-                    longtitude: lng
-                }
 
-                $.ajax('home/data/', {
-                    type: 'POST',
-                    headers: { "X-CSRFToken": '{{csrf_token}}' },
-                    dataType: 'json',
-                    data: { data: JSON.stringify(data) },
-                    timeout: 500,
-                    success: (data, status, xhr) => {
-                        // 
-                    },
-                    error: (jqXhr, textStatus, errorMessage) => {
-                        console.log('Error', errorMessage)
+                username = `{{ user.get_username }}`;
+
+                // fixes if user db updates and logs out then django view tries to fetch username which 
+                // doesnt exist and adds AnonymousUser to db
+                if (username.length > 0) {
+                    data = {
+                        username: username,
+                        latitude: lat,
+                        longtitude: lng
                     }
-                })
+
+                    $.ajax('home/data/', {
+                        type: 'POST',
+                        headers: { "X-CSRFToken": '{{csrf_token}}' },
+                        dataType: 'json',
+                        data: { data: JSON.stringify(data) },
+                        timeout: 500,
+                        success: (data, status, xhr) => {
+                            // 
+                        },
+                        error: (jqXhr, textStatus, errorMessage) => {
+                            console.log('Error', errorMessage)
+                        }
+                    })
+                }
             }
         }
 

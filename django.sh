@@ -16,3 +16,6 @@ docker exec -it django_project python manage.py migrate
 docker exec -it django_project \
     python manage.py shell \
     -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@admin.com', 'admin')"
+docker exec -it django_project \
+    python manage.py shell \
+    -c "from world import load; load.run()"

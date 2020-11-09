@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
+from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
 from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm as BaseSetPasswordForm
 from django.contrib.auth.forms import UsernameField
@@ -55,7 +56,7 @@ class PasswordChangeForm(SetPasswordForm):
     )
 
 
-class SignupForm(UserCreationForm):
+class SignupForm(BaseUserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():

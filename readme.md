@@ -72,3 +72,9 @@ sudo apt-get install nginx
 # here we create the cert
 sudo certbot --nginx
 ```
+
+reset github changes 
+```
+git reset --hard
+git pull
+```

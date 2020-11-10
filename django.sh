@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #django
 docker stop django_project
 docker rm django_project

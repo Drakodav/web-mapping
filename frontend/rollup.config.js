@@ -34,9 +34,8 @@ export default {
       options: {
         swDest: './dist/service-worker.js',
         globDirectory: './dist',
-        // globDirectory: './non_existing_dir',
-        // other workbox-build options depending on the mode
       },
+      exclude: [/\.map$/, /_redirects/]
     }),
   ],
   external: ['workbox-routing', 'workbox-strategies', 'workbox-expiration', 'workbox-sw'],

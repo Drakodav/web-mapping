@@ -152,6 +152,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/dist/static'),
+    os.path.join(BASE_DIR, 'frontend/dist/service-worker.js'),
     os.path.join(BASE_DIR, 'staticfiles/bootstrap'),
     os.path.join(BASE_DIR, 'staticfiles/icons'),
 ]

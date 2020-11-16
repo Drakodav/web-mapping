@@ -11,6 +11,8 @@ sudo ./django.sh;
 cd ..;
 sudo rm -r web-mapping;
 '
+echo "Cleaning up..."
+echo "Finished updating django to latest version"
 
 
 

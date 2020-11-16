@@ -8,16 +8,15 @@ docker image rm geodjangoapp
 docker build -t geodjangoapp .
 docker create --name django_project --network geonet --network-alias na_django -t \
 geodjangoapp
-# -p 8001:8001 \
 
 docker start django_project
 
 # run default config precautions
-docker exec -it django_project python manage.py makemigrations
-docker exec -it django_project python manage.py migrate
-docker exec -it django_project \
+docker exec django_project python manage.py makemigrations
+docker exec django_project python manage.py migrate
+docker exec django_project \
     python manage.py shell \
     -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@admin.com', 'admin')"
-docker exec -it django_project \
+docker exec django_project \
     python manage.py shell \
     -c "from world import load; load.run()"

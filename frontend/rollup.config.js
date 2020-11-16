@@ -7,9 +7,10 @@ import babel from 'rollup-plugin-babel'
 export default {
   input: './index.ts',
   output: {
-    file: './dist/bundle.js',
+    file: './dist/static/bundle.js',
     format: 'iife',
     name: 'bundle',
+    publicPath: '/',
     globals: {
       'workbox-routing': 'workboxRouting',
       'workbox-strategies': 'workboxStrategies',
@@ -33,9 +34,10 @@ export default {
       options: {
         swDest: './dist/service-worker.js',
         globDirectory: './dist',
+        // globDirectory: './non_existing_dir',
         // other workbox-build options depending on the mode
       },
     }),
   ],
-  external: ['workbox-routing', 'workbox-strategies', 'workbox-expiration', 'workbox-sw']
+  external: ['workbox-routing', 'workbox-strategies', 'workbox-expiration', 'workbox-sw'],
 };

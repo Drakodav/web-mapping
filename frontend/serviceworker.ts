@@ -1,22 +1,19 @@
 import 'workbox-sw';
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { Plugin as ExpirationPlugin } from 'workbox-expiration';
 
-registerRoute(
+workbox.routing.registerRoute(
   ({ request }) =>
     request?.destination === 'script' || request?.destination === 'style',
-  new StaleWhileRevalidate({
-    cacheName: 'static-resources',
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'staticfiles',
   })
 );
 
-registerRoute(
+workbox.routing.registerRoute(
   ({ request }) => request?.destination === 'image',
-  new CacheFirst({
+  new workbox.strategies.CacheFirst({
     cacheName: 'images',
     plugins: [
-      new ExpirationPlugin({
+      new workbox.expiration.Plugin({
         maxEntries: 60,
         maxAgeSeconds: 30 * 24 * 60 * 60,
       }),

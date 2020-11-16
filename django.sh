@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #django
-docker image rm geodjangoapp
-docker build -t geodjangoapp .
-
 docker stop django_project
 docker rm django_project
+
+docker rmi geodjangoapp
+docker build -t geodjangoapp .
+
 docker create --name django_project --network geonet --network-alias na_django -t \
 geodjangoapp
 

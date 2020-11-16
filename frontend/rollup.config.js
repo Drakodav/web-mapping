@@ -5,9 +5,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel'
 
 export default {
-  input: './index.ts',
+  input: 'index.ts',
   output: {
-    file: './dist/static/bundle.js',
+    file: 'dist/static/bundle.js',
     format: 'iife',
     name: 'bundle',
     publicPath: '/',
@@ -32,11 +32,11 @@ export default {
     workbox({
       mode: 'generateSW', // or 'injectManifest'
       options: {
-        swDest: './dist/service-worker.js',
-        globDirectory: './dist',
+        swDest: 'dist/service-worker.js',
+        globDirectory: 'dist',
       },
-      exclude: [/\.map$/, /_redirects/]
+      exclude: [/\.map$/, /static/]
     }),
   ],
-  external: ['workbox-routing', 'workbox-strategies', 'workbox-expiration', 'workbox-sw'],
+  external: ['workbox-sw'],
 };

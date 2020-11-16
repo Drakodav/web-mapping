@@ -1,3 +1,4 @@
+import 'workbox-sw';
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { Plugin as ExpirationPlugin } from 'workbox-expiration';

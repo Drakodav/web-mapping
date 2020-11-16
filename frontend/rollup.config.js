@@ -1,21 +1,18 @@
-import workbox from 'rollup-plugin-workbox-build';
-import typescript from 'rollup-plugin-typescript';
-import { uglify } from "rollup-plugin-uglify";
 import resolve from '@rollup/plugin-node-resolve';
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
+import typescript from '@rollup/plugin-typescript';
+import workbox from 'rollup-plugin-workbox-build';
+import { uglify } from "rollup-plugin-uglify";
 
 export default {
   input: 'index.ts',
   output: {
-    file: 'dist/static/bundle.js',
+    // file: 'dist/static/bundle.js',
+    dir: 'dist/static/',
     format: 'iife',
     name: 'bundle',
-    publicPath: '/',
-    globals: {
-      'workbox-routing': 'workboxRouting',
-      'workbox-strategies': 'workboxStrategies',
-      'workbox-expiration': 'workboxExpiration'
-    }
+    sourcemap: true,
+    // globals: {}
   },
   plugins: [
     typescript(),
@@ -28,6 +25,7 @@ export default {
     }),
     babel({
       exclude: './node_modules/**', // only transpile our source code
+      babelHelpers: 'bundled'
     }),
     workbox({
       mode: 'generateSW', // or 'injectManifest'

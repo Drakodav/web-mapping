@@ -4,3 +4,5 @@
 web-mapping_key.pem
 **/__pycache__/**
 staticfiles/static
+frontend/node_modules
+# frontend/dist                 add this when its script is ready to install node modules

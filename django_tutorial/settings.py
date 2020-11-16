@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'pwa',
     'leaflet',
     'world',
 ]
@@ -150,7 +151,9 @@ STATIC_URL = "/static/"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/static")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles/bootstrap')
+    os.path.join(BASE_DIR, 'frontend/dist'),
+    os.path.join(BASE_DIR, 'staticfiles/bootstrap'),
+    os.path.join(BASE_DIR, 'staticfiles/icons'),
 ]
 
 if socket.gethostname() == "DESKTOP-9D122S4":
@@ -166,8 +169,76 @@ else:
     DATABASES["default"]["HOST"] = 'postgis'
     DATABASES["default"]["PORT"] = 5432
 
-    DEBUG = False
-    TEMPLATES[0]["OPTIONS"]["debug"] = False
     ALLOWED_HOSTS = ['.thev-lad.com', 'localhost']
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
+    # DEBUG = False
+    # TEMPLATES[0]["OPTIONS"]["debug"] = False
+    # CSRF_COOKIE_SECURE = True
+    # SESSION_COOKIE_SECURE = True
+    # PWA_APP_DEBUG_MODE = False
+
+
+# PWA configuration manifest
+PWA_SERVICE_WORKER_PATH = os.path.join(
+    BASE_DIR, 'frontend/dist/service-worker.js')
+
+
+PWA_APP_NAME = 'geoLad'
+PWA_APP_DESCRIPTION = "AWM"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/staticfiles/icons/splash.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_APP_ICONS = [
+    {
+        "src": "/staticfiles/icons/icon-72x72.png",
+        "sizes": "72x72",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-128x128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-152x152.png",
+        "sizes": "152x152",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-384x384.png",
+        "sizes": "384x384",
+        "type": "image/png"
+    },
+    {
+        "src": "/staticfiles/icons/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }
+]
+PWA_APP_ICONS_APPLE = PWA_APP_ICONS

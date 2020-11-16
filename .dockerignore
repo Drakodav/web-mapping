@@ -7,9 +7,6 @@ create.sh
 run.sh
 web-mapping-key.pem
 frontend/node_modules
-frontend/*.json
-frontend/*.ts
-frontend/*.js
 web-mapping_key.pem
 *.sh
 nginx/

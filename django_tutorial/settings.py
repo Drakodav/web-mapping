@@ -150,9 +150,14 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/static")
+ADMIN_MEDIA_PREFIX = '/static/admin/'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/dist/'),
     os.path.join(BASE_DIR, 'frontend/dist/static'),
-    os.path.join(BASE_DIR, 'frontend/dist/service-worker.js'),
     os.path.join(BASE_DIR, 'staticfiles/bootstrap'),
     os.path.join(BASE_DIR, 'staticfiles/icons'),
 ]

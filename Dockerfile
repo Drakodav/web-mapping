@@ -21,7 +21,7 @@ RUN pip install -r requirements.txt
 COPY . /usr/src/app
 
 # make sure static files are up to date and available 
-RUN python manage.py collectstatic --no-input
+RUN python manage.py collectstatic --no-input --link
 
 # expose localhost 8001 on the image
 EXPOSE 8001

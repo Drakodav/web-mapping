@@ -23,8 +23,10 @@ from .views import redirect_root
 urlpatterns = [
     url(r'^$', redirect_root),  # if url is just / then redirect to /home/
     path('home', TemplateView.as_view(template_name='index.html'), name='home'),
-    path('home/', include('world.urls')),
+    path('world/', include('world.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    url('', include('pwa.urls'))
+    url('', include('pwa.urls')),
+
+
 ]
